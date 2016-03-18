@@ -6,7 +6,7 @@
 // ------------------------- REQUIRE ----------------------
 // common module to share global dep among all test files
 var common = require("./common"); // eslint-disable-line no-unused-vars
-var perf = require("../../perfLogger");
+var perf = require("../perfLogger");
 
 // to manage async tests in a loop with mocha
 require('it-each')({
