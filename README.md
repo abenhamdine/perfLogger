@@ -19,6 +19,8 @@ perf-logger uses some ES6 syntax : especially const and let keywords (and so is 
 
 Thus to be able to run this module, you need node version 0.12 with --harmony flag, or io.js/nodejs version greater then 1.0
 
+# API
+
 ## Config
 
 To enable the perf logger :
@@ -51,7 +53,7 @@ setDefaultCriticityTime(20);
 
 The start() method allow to start the perf measurement.
 
-start() must be passed a string, that will be the id of the perf measurement (this is is called "tag").
+start() must be passed a string, that will be the id of the perf measurement (this id is named "tag" in the code and in the docs).
 This tag will also be displayed in the summary, so choose an explicit name, eg the name of the function you want to measure the performance.
 
 ```js
@@ -64,7 +66,7 @@ perf.start("functionFoo");
 
 ## End measurement
 
-The end() method allow to start the perf measurement.
+The end() method allow to end the perf measurement.
 
 end() must be passed a string, that is the id of the perf measurement.
 
