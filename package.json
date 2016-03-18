@@ -1,11 +1,11 @@
 {
-  "name": "perfLogger",
+  "name": "perf-logger",
   "description": "perf measurement for nodejs",
   "version": "1.0.0",
   "author": {
     "name": "Arnaud Benhamdine",
     "email": "",
-    "url": "https://github.com/abenhamdine/perfLogger"
+    "url": "https://github.com/abenhamdine/perf-logger"
   },
   "license" : "MIT",
   "private": false,
@@ -19,9 +19,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/abenhamdine/perfLogger.git"
+    "url": "https://github.com/abenhamdine/perf-logger.git"
   },
-  "bugs": "https://github.com/abenhamdine/perfLogger/issues",
+  "bugs": "https://github.com/abenhamdine/perf-logger/issues",
   "devDependencies": {
     "chai-http": "^1.0.0",
     "eslint": "^2",
