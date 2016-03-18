@@ -9,6 +9,9 @@ perf-logger helps you to measure execution time of a piece of code (eg a functio
 
 Of course, you could also do it easily with the native nodejs function process.hrtime(), but perf-logger adds some usefull features, and gives you a nice summary of all the execution times, with statistics.
 
+Exemple of summary in the console :
+![image](https://cloud.githubusercontent.com/assets/7466144/13882603/6c8b2a74-ed26-11e5-9d7f-97791fe57f4b.png)
+
 
 # Requirements
 
