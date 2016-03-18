@@ -1,0 +1,37 @@
+{
+  "name": "perfLogger",
+  "description": "perf measurement for nodejs",
+  "version": "1.0.0",
+  "author": {
+    "name": "Arnaud Benhamdine",
+    "email": "",
+    "url": "https://github.com/abenhamdine/perfLogger"
+  },
+  "private": false,
+  "scripts": {
+    "test": "mocha test/**/*.js",
+    "start": "node perfLogger"
+  },
+  "main": "perfLogger.js",
+  "engines": {
+    "node": ">=5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abenhamdine/perfLogger.git"
+  },
+  "devDependencies": {
+    "chai-http": "^1.0.0",
+    "eslint": "^2",
+    "it-each": "^0",
+    "jsdoc": "^3",
+    "mocha": "^2"
+  },
+  "dependencies": {
+    "chai": "~3",
+    "colors": "~1",
+    "lodash": "~4",
+    "moment": "~2",
+    "tty-table": "^1"
+  }
+}

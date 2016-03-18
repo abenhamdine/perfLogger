@@ -1,0 +1,7 @@
+node_modules/
+npm-debug.log
+temp
+node_modules/
+*.sublime-project
+*.sublime-workspace
+*.pub
