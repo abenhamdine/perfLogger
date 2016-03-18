@@ -7,7 +7,7 @@ Performance measurement tool for nodejs.
 
 perf-logger helps you to measure execution time of a piece of code (eg a function), by calling perf.start() and perf.end().
 
-Of course, you could also do it easyly with the native nodejs function process.hrtime(), but perf-logger adds some usefull features, and gives you a nice summary of all the execution times, with statistics.
+Of course, you could also do it easily with the native nodejs function process.hrtime(), but perf-logger adds some usefull features, and gives you a nice summary of all the execution times, with statistics.
 
 
 # Requirements
