@@ -209,24 +209,36 @@ const myPerfLogger = {
 	 * @param  {string}  sTitle      		[description]
 	 * @param  {function}  fCallback      	[description]
 	 */
-	summary: function(bReset, sOrderAttribute, sOrderSens, sTitle, fCallback) {
+	summary: function(options) {
 
-		if (_.isEmpty(sOrderAttribute)) {
-			bReset = true;
+		if (_.isUndefined(options) || _.isNull(options)) {
+			options = {
+				bReset : false,
+				sOrderAttribute: 'iDuration',
+				sOrderSens: 'desc',
+				sTitle : "",
+				fCallback: null
+			};
 		}
-		if (_.isEmpty(sOrderAttribute)) {
-			sOrderAttribute = 'iDuration';
+
+		chai.expect(options).to.exist.and.be.a('object').and.not.be.empty;
+
+		if (_.isEmpty(options.bReset)) {
+			options.bReset = true;
 		}
-		if (_.isEmpty(sOrderSens)) {
-			sOrderSens = 'desc';
+		if (_.isEmpty(options.sOrderAttribute)) {
+			options.sOrderAttribute = 'iDuration';
 		}
-		if (_.isNull(sTitle) || _.isUndefined(sTitle)) {
-			sTitle = "";
+		if (_.isEmpty(options.sOrderSens)) {
+			options.sOrderSens = 'desc';
+		}
+		if (_.isNull(options.sTitle) || _.isUndefined(options.sTitle)) {
+			options.sTitle = "";
 		}
 
 		// object summary to pass the hook function
 		const objectSummary = {};
-		objectSummary.sTitle = sTitle;
+		objectSummary.sTitle = options.sTitle;
 		objectSummary.dDateSummary = new Date();
 		objectSummary.sVersionNode = process.versions.node; // ex : '5.8.0'
 		objectSummary.sVersionV8 = process.versions.v8; // ex : '4.1.0.14'
@@ -239,21 +251,21 @@ const myPerfLogger = {
 		objectSummary.iNbSecsUptime = os.uptime();
 		objectSummary.aRows = [];
 
-		if (sTitle !== "") {
-			sTitle = "of " + sTitle + " ";
+		if (options.sTitle !== "") {
+			options.sTitle = "of " + options.sTitle + " ";
 		}
 
-		if (_.isUndefined(fCallback) || _.isNull(fCallback)) {
+		if (_.isUndefined(options.fCallback) || _.isNull(options.fCallback)) {
 			if (!_.isNull(this._fSummaryHookFunction) && !_.isUndefined(this._fSummaryHookFunction) && _.isFunction(this._fSummaryHookFunction)) {
-				fCallback = this._fSummaryHookFunction;
+				options.fCallback = this._fSummaryHookFunction;
 			}
 		} else {
-			chai.expect(fCallback).to.be.a('function');
+			chai.expect(options.fCallback).to.be.a('function');
 		}
 
-		chai.expect(sOrderAttribute, "sOrderAttribute devrait être une chaine définie").to.exist.and.be.a('string');
-		chai.expect(sOrderSens, "sOrderSens devrait être une chaine définie").to.exist.and.be.a('string');
-		chai.expect(sTitle, "sTitle devrait être une chaine définie").to.exist.and.be.a('string');
+		chai.expect(options.sOrderAttribute, "sOrderAttribute devrait être une chaine définie").to.exist.and.be.a('string');
+		chai.expect(options.sOrderSens, "sOrderSens devrait être une chaine définie").to.exist.and.be.a('string');
+		chai.expect(options.sTitle, "sTitle devrait être une chaine définie").to.exist.and.be.a('string');
 
 		if (this._isEnabled) {
 
@@ -331,7 +343,7 @@ const myPerfLogger = {
 			}];
 			let aRows = [];
 
-			let aSortedTests = _.orderBy(this._testsSummary, [sOrderAttribute], [sOrderSens]);
+			let aSortedTests = _.orderBy(this._testsSummary, [options.sOrderAttribute], [options.sOrderSens]);
 			let sErrors = "";
 
 			for (let i = 0; i < aSortedTests.length; i++) {
@@ -379,14 +391,14 @@ const myPerfLogger = {
 
 			let bHookDefined = false;
 
-			if (_.isFunction(fCallback) && !_.isNull(fCallback) && !_.isUndefined(fCallback)) {
+			if (_.isFunction(options.fCallback) && !_.isNull(options.fCallback) && !_.isUndefined(options.fCallback)) {
 				bHookDefined = true;
 			}
 
 			if (!bHookDefined || (bHookDefined && this._bDisplaySummaryWhenHook)) {
-				console.log("  -------------------------------------------------------------------" + _.repeat("-", sTitle.length));
-				console.log("                 Performance summary " + sTitle + moment().format('DD-MM-YYYY HH:mm'));
-				console.log("  -------------------------------------------------------------------" + _.repeat("-", sTitle.length));
+				console.log("  -------------------------------------------------------------------" + _.repeat("-", options.sTitle.length));
+				console.log("                 Performance summary " + options.sTitle + moment().format('DD-MM-YYYY HH:mm'));
+				console.log("  -------------------------------------------------------------------" + _.repeat("-", options.sTitle.length));
 				const table = Ttytable(header, aRows, {
 					borderStyle: 1,
 					paddingBottom: 0,
@@ -403,10 +415,10 @@ const myPerfLogger = {
 
 			if (bHookDefined) {
 				objectSummary.aRows = _.filter(this._testsSummary, {ended:true});
-				fCallback(objectSummary);
+				options.fCallback(objectSummary);
 			}
 
-			if (bReset) {
+			if (options.bReset) {
 				aSortedTests = [];
 				aRows = [];
 				this._tests = {};
