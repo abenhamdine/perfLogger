@@ -21,6 +21,7 @@
     "type": "git",
     "url": "https://github.com/abenhamdine/perfLogger.git"
   },
+  "bugs": "https://github.com/abenhamdine/perfLogger/issues",
   "devDependencies": {
     "chai-http": "^1.0.0",
     "eslint": "^2",
