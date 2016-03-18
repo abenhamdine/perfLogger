@@ -66,8 +66,9 @@ The most simple way to know the results of the perf measurements is to call perf
 perf.summary()
 ```
 
-summary() accepts the following arguments :
+summary() accepts an options object as unique argument.
 
+This object can have the following properties :
 bReset, sOrderAttribute, sOrderSens, sTitle, fCallback
 
 
