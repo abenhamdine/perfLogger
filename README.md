@@ -33,15 +33,17 @@ To set several config properties at once :
 perf.setConfig({
 	_fSummaryHookFunction: savePerfMeasure,
 	_isEnabled: true,
-	_bDisplaySummaryWhenHook: true
+	_bDisplaySummaryWhenHook: true,
+	_iDefaultCriticityTime : 20
 });
 ```
 
 You can also use individual setters :
 
 ```js
-setPrintStartAndEnd(true)
-setHookFunction(myHookCallback)
+setPrintStartAndEnd(true);
+setHookFunction(myHookCallback);
+setDefaultCriticityTime(20);
 ```
 
 
@@ -49,8 +51,8 @@ setHookFunction(myHookCallback)
 
 The start() method allow to start the perf measurement.
 
-start() must be passed a string, that will be the id of the perf measurement.
-This string will also be displayed in the summary, so choose an explicit name, eg the name of the function you want to measure the performance
+start() must be passed a string, that will be the id of the perf measurement (this is is called "tag").
+This tag will also be displayed in the summary, so choose an explicit name, eg the name of the function you want to measure the performance.
 
 ```js
 perf = require('perf-logger');
@@ -72,7 +74,7 @@ perf.end("functionFoo");
 
 ## Multiple calls
 
-Of course, the same piece of code is likely to run several times, and so perf.start("myCode") and perf.end("myCode") will be called with for the same id.
+Of course, the same piece of code is likely to run several times, and so perf.start("myCode") and perf.end("myCode") will be called with for the same tag.
 In this case, in the final summary, you will get statistics about every measure (see below).
 
 ## Get a summary
@@ -82,7 +84,13 @@ The method summary() gives you the list of the perf measurements performed, with
 - the minimum time
 - the maximum time
 - the nb of calls to the function measured
+
+If the summary is displayed in the console, you will have the additional columns :
 - the average time
+- the criticity time set for the tag
+- a red exclamation mark if this criticity time is exceeded
+- the % of the executions that exceeded the criticity tyme
+
 
 summary() accepts an options object as unique argument.
 
@@ -131,31 +139,41 @@ Henceforth, when summary() is called, the callback is called and passed an objec
 
 The 'objectSummary' as the following properties :
 
-sTitle {string}
-
-dDateSummary {date}
-
-sVersionNode {string} // content of process.versions.node; // ex : '5.8.0'
-
-sVersionV8 {string}  // content of  process.versions.v8; // ex : '4.1.0.14'
-
-aCPU = os.cpus();
-
-sArchitecture {string} // content of  os.arch();
-
-sPlatform {string}  // content of  os.platform(); // ex : 'win32'
-
-sOSName {string}  // content of os.type(); // ex : 'Windows_NT'
-
-sRelease {string}  // content of os.release(); // Returns the operating system release.
-
-iTotalMem {number} //  os.totalmem();
-
-iNbSecsUptime {number} // os.uptime();
-
-aRows {array}
+- sTitle {string}
+- dDateSummary {date}
+- sVersionNode {string} // content of process.versions.node; // ex : '5.8.0'
+- sVersionV8 {string}  // content of  process.versions.v8; // ex : '4.1.0.14'
+- aCPU = os.cpus();
+- sArchitecture {string} // content of  os.arch();
+- sPlatform {string}  // content of  os.platform(); // ex : 'win32'
+- sOSName {string}  // content of os.type(); // ex : 'Windows_NT'
+- sRelease {string}  // content of os.release(); // Returns the operating system release.
+- iTotalMem {number} //  os.totalmem();
+- iNbSecsUptime {number} // os.uptime();
+- aRows {array}
 
 aRows contents one line by measurement performed with the start() and end() functions.
+
+## Set maximum execution times for tags
+
+It's possible to set a maximum execution time :
+- for all tags
+- or for some specific tags.
+
+This time is named the "criticity level".
+
+In the summary, the number of times a code exceed the level is displayed in the last column.
+
+The method setLevel() allows to set a specific criticity level for a given tag.
+
+For example,
+```js
+perf.setLevel("myFastFunction", 10)
+```
+set the level at 10 ms.
+
+If the average execution time of myFastFunction() is above 10ms, a red exclamation mark will be displayed in the summary.
+The % of functions calls that exceed the level will be also diplayed (last column of the summary).
 
 
 ## Alternatives modules
