@@ -374,12 +374,8 @@ const myPerfLogger = {
 
 				let iAvgDuration = 0;
 
-				if (aSortedTests[i].iNb > 1) {
-					iAvgDuration = Math.round(aSortedTests[i].iDuration / aSortedTests[i].iNb);
-					sAvgDuration = this.humanizeSeconds(iAvgDuration);
-				} else {
-					sAvgDuration = "";
-				}
+				iAvgDuration = Math.round(aSortedTests[i].iDuration / aSortedTests[i].iNb);
+				sAvgDuration = this.humanizeSeconds(iAvgDuration);
 
 				let sAboveLevel = "";
 				if (aSortedTests[i].iNbAboveLevel > 0) {
