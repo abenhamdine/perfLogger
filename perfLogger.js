@@ -15,6 +15,7 @@ const myPerfLogger = {
 	_LEVEL_TAG_ALL: "***ALL***",
 	_fSummaryHookFunction: null, // callback to pass the summary object in summary()
 	_bDisplaySummaryWhenHook: false, // by default, we don't display summary in console if a hook function is defined
+	_iDefaultCriticityTime : 10, // default criticity level time : 10ms
 
 	enable: function(b) {
 
@@ -47,6 +48,9 @@ const myPerfLogger = {
 			this._bDisplaySummaryWhenHook = config._bDisplaySummaryWhenHook;
 		}
 
+		if (config._iDefaultLevelMs) {
+			this.setDefaultCriticityTime(config._iDefaultLevelMs);
+		}
 
 	},
 
@@ -58,6 +62,14 @@ const myPerfLogger = {
 		chai.expect(b).to.exist.and.be.a('boolean');
 		this._printStartAndEnd = b;
 	},
+
+	setDefaultCriticityTime: function(iMs) {
+
+		chai.expect(iMs).to.be.a('number');
+		this._iDefaultCriticityTime = iMs;
+
+	},
+
 
 	start: function(sTag) {
 
