@@ -124,5 +124,37 @@ describe('Test of perfLogger enabled', function () {
 
 	});
 
+	it('#Visual test of console summary, with 1 row', function(done) {
+
+		const fHook = function(testDone, objectSummary) {
+
+			chai.expect(objectSummary.aRows).to.be.an('array').and.not.be.empty;
+			chai.expect(objectSummary.aRows.length).to.equal(1);
+
+			testDone();
+		};
+
+		const fHookBound = fHook.bind(this, done);
+
+		perf.setConfig({
+			_fSummaryHookFunction: fHookBound,
+			_bDisplaySummaryWhenHook: true
+		});
+
+		perf.setLevel("test", 5);
+
+		perf.start("test");
+
+		const fPerfEnd = function(myPerf) {
+			myPerf.end("test");
+			myPerf.summary();
+		};
+
+		// nb : default mocha timeout is 2000
+		setTimeout(fPerfEnd, 10, perf);
+
+
+	});
+
 
 });
