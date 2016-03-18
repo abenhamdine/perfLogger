@@ -3,6 +3,8 @@ perf-logger.js
 
 Performance measurement tool for nodejs.
 
+[![Build Status](https://travis-ci.org/abenhamdine/perf-logger.svg?branch=master)](https://travis-ci.org/abenhamdine/perf-logger)
+
 # Objectives
 
 perf-logger helps you to measure execution time of a piece of code (eg a function), by calling perf.start() and perf.end().
