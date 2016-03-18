@@ -7,6 +7,7 @@
     "email": "",
     "url": "https://github.com/abenhamdine/perfLogger"
   },
+  "license" : "MIT",
   "private": false,
   "scripts": {
     "test": "mocha test/**/*.js",
