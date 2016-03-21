@@ -23,7 +23,6 @@
   },
   "bugs": "https://github.com/abenhamdine/perf-logger/issues",
   "devDependencies": {
-    "chai-http": "^1.0.0",
     "eslint": "^2",
     "it-each": "^0",
     "jsdoc": "^3",
