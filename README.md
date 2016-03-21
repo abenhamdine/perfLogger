@@ -143,22 +143,32 @@ perf.summary({fCallback : fMyHookFunction})
 
 Henceforth, when summary() is called, the callback is called and passed an object with all the information about the perf measurement.
 
-The 'objectSummary' as the following properties :
+The 'objectSummary' has the following properties :
 
-- sTitle {string}
-- dDateSummary {date}
-- sVersionNode {string} // content of process.versions.node; // ex : '5.8.0'
-- sVersionV8 {string}  // content of  process.versions.v8; // ex : '4.1.0.14'
-- aCPU = os.cpus();
-- sArchitecture {string} // content of  os.arch();
-- sPlatform {string}  // content of  os.platform(); // ex : 'win32'
-- sOSName {string}  // content of os.type(); // ex : 'Windows_NT'
-- sRelease {string}  // content of os.release(); // Returns the operating system release.
-- iTotalMem {number} //  os.totalmem();
-- iNbSecsUptime {number} // os.uptime();
-- aRows {array}
+- sTitle {string}			[Title of the summary passed in the options object to the function summary()]
+- dDateSummary {date} 		[Date of the summary, it's a simple js date object.]
+- sVersionNode {string} 	[content of nodejs process.versions.node; // ex : '5.8.0'
+- sVersionV8 {string}  		[content of nodejs process.versions.v8; // ex : '4.1.0.14'
+- aCPU {array} 				[Content of nodejs os.cpu()]
+- sArchitecture {string}	[content of nodejs os.arch()]
+- sPlatform {string}  		[content of nodejs os.platform() ex : 'win32']
+- sOSName {string}  		[content of nodjes os.type() ex : 'Windows_NT']
+- sRelease {string}  		[content of nodejs os.release() : returns the operating system release.]
+- iTotalMem {number} 		[content of nodejs os.totalmem()]
+- iNbSecsUptime {number}	[content of nodejs os.uptime()]
+- aRows {array}				[array of row objects. See below.]
 
-aRows contents one line by measurement performed with the start() and end() functions.
+aRows contents one element by measurement performed with the start() and end() functions.
+
+The aRows element contains the following properties :
+
+- sName {String} 			["tag" of the code measured]
+- iDuration {Number} 		[total execution time in ms]
+- iMinDuration {Number} 	[minimum execution time in ms]
+- iMaxDuration {Number} 	[maximum execution time in ms]
+- iNb {Number} 				[number of times this tag is measured (id perf.start() and perf.end() are called for this tag)]
+- iLevel {Number} 			[threshold beyond which a code is considered low (see "criticity level hereafter")]
+- iNbAboveLevel {Number} 	[number of times the execution time for this tag exceed the criticity threshold]
 
 ## Set maximum execution times for tags
 
