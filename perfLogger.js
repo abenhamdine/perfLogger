@@ -31,7 +31,7 @@ const myPerfLogger = {
 	setConfig: function(config) {
 		chai.expect(config).to.exist.and.be.a('object').and.not.be.empty;
 
-		if (config._printStartAndEnd) {
+		if (!_.isUndefined(config._printStartAndEnd) && !_.isNull(config._printStartAndEnd)) {
 			this.setPrintStartAndEnd(config._printStartAndEnd);
 		}
 
@@ -39,7 +39,7 @@ const myPerfLogger = {
 			this.setHookFunction(config._fSummaryHookFunction);
 		}
 
-		if (config._isEnabled) {
+		if (!_.isUndefined(config._isEnabled) && !_.isNull(config._isEnabled)) {
 			this.enable(config._isEnabled);
 		}
 
@@ -177,8 +177,6 @@ const myPerfLogger = {
 		// the second time tuple Array element is a number of nanoseconds and
 		// it has to be divided by 1,000,000 in order to get time in milliseconds.
 		const iDiff = Math.round(hrDiff[0] * 1000) + Math.round(hrDiff[1] / 1000000);
-		//console.log("contenu de iDiff :");
-		//console.log(iDiff);
 
 		delete this._tests[sTag];
 
