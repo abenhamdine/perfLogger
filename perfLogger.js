@@ -44,8 +44,7 @@ const myPerfLogger = {
 		}
 
 		if (!_.isUndefined(config._bDisplaySummaryWhenHook) && !_.isNull(config._bDisplaySummaryWhenHook)) {
-			chai.expect(config._bDisplaySummaryWhenHook).to.be.a('boolean');
-			this._bDisplaySummaryWhenHook = config._bDisplaySummaryWhenHook;
+			this.setDisplaySummaryWhenHook(config._bDisplaySummaryWhenHook);
 		}
 
 		if (config._iDefaultLevelMs) {
@@ -70,6 +69,12 @@ const myPerfLogger = {
 
 	},
 
+	setDisplaySummaryWhenHook: function(b) {
+
+		chai.expect(b).to.be.a('boolean');
+		this._bDisplaySummaryWhenHook = b;
+
+	},
 
 	start: function(sTag) {
 
