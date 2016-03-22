@@ -9,9 +9,9 @@ Performance measurement tool for nodejs.
 
 # Objectives
 
-perf-logger helps you to measure execution time of a piece of code (eg a function), by calling perf.start() and perf.end().
+perf-logger helps you to measure execution time of a piece of code (eg a function) in nodejs, by calling perf.start() and perf.end(), respectively at the begin and at the end of the code.
 
-Of course, you could also do it easily with the native nodejs function process.hrtime(), but perf-logger adds some usefull features, and gives you a nice summary of all the execution times, with statistics.
+Of course, you could also do it easily with the native nodejs function process.hrtime(), but perf-logger adds some useful features, and gives you a nice summary of all the execution times, with statistics.
 
 Exemple of summary in the console :
 ![image](https://cloud.githubusercontent.com/assets/7466144/13882603/6c8b2a74-ed26-11e5-9d7f-97791fe57f4b.png)
@@ -22,6 +22,16 @@ Exemple of summary in the console :
 perf-logger uses some ES6 syntax : especially const and let keywords (and so is in strict mode).
 
 Thus to be able to run this module, you need node version 0.12 with --harmony flag, or io.js/nodejs version greater then 1.0
+
+# Installation
+
+```bash
+npm install perf-logger
+```
+
+```js
+const perf = require('perf-logger');
+```
 
 # API
 
@@ -40,7 +50,8 @@ perf.setConfig({
 	_fSummaryHookFunction: savePerfMeasure,
 	_isEnabled: true,
 	_bDisplaySummaryWhenHook: true,
-	_iDefaultCriticityTime : 20
+	_iDefaultCriticityTime : 20,
+	_printStartAndEnd: true
 });
 ```
 
@@ -78,10 +89,59 @@ end() must be passed a string, that is the id of the perf measurement.
 perf.end("functionFoo");
 ```
 
+## Abort a measurement
+
+If you want to cancel a perf measurement, use the abort() function :
+
+```js
+perf.abort('functionFoo');
+```
+
+It's useful when you don't want to log the perf measurement, for example in case of error.
+
+
+## Log start and end of the measurement
+
+If you want to log every start and end measurement, set the following property on true :
+
+```js
+perf.setConfig({
+	_printStartAndEnd: true
+});
+```
+
+or
+
+```js
+perf.setPrintStartAndEnd(true);
+```
+
+So you will get some logging in the console :
+
+```js
+perf.start('functionFoo');
+```
+
+```bash
+Start functionFoo;
+```
+
+```js
+perf.end('functionFoo');
+```
+
+```bash
+functionFoo
+```
+
+
+
+
 ## Multiple calls
 
 Of course, the same piece of code is likely to run several times, and so perf.start("myCode") and perf.end("myCode") will be called with for the same tag.
 In this case, in the final summary, you will get statistics about every measure (see below).
+
 
 ## Get a summary
 
@@ -95,15 +155,19 @@ If the summary is displayed in the console, you will have the additional columns
 - the average time
 - the criticity time set for the tag
 - a red exclamation mark if this criticity time is exceeded
-- the % of the executions that exceeded the criticity tyme
+- the % of the executions that exceeded the criticity time
 
 
 summary() accepts an options object as unique argument.
 
 This object can have the following properties :
-bReset, sOrderAttribute, sOrderSens, sTitle, fCallback
+- bReset :
+- sOrderAttribute :
+- sOrderSens :
+- sTitle :
+- fCallback :
 
-### In the console
+### Summary in the console
 
 The most simple way to know the results of the perf measurements is to call perf.summary() and see the print in the console.
 
@@ -111,7 +175,7 @@ The most simple way to know the results of the perf measurements is to call perf
 perf.summary()
 ```
 
-### In an object, with a hook function
+### Summary in an object, with a hook function
 
 If you set a hook function, instead of display the results in the console, summary() will call the hook function and pass an object with the results.
 
@@ -129,6 +193,22 @@ or
 perf.setConfig({
 	_fSummaryHookFunction: fMyHookFunction
 });
+```
+
+By default, if a hook function is defined, the summary will not be displayed in the console.
+Indeed, we assume that if you want to get the summary passed to a function, you are likely to not want the display in the console.
+However, if you also want to have the summary in the console, you can set the property _bDisplaySummaryWhenHook on true (default is false) :
+
+```js
+perf.setConfig({
+	_bDisplaySummaryWhenHook: true
+});
+```
+
+or
+
+```js
+perf.setDisplaySummaryWhenHook(true);
 ```
 
 #### by directly passing the function in the options object to summary()
@@ -180,6 +260,7 @@ This time is named the "criticity level".
 
 In the summary, the number of times a code exceed the level is displayed in the last column.
 
+By default, a criticity time of 10ms is set for all the tags.
 The method setLevel() allows to set a specific criticity level for a given tag.
 
 For example,
@@ -191,6 +272,10 @@ set the level at 10 ms.
 If the average execution time of myFastFunction() is above 10ms, a red exclamation mark will be displayed in the summary.
 The % of functions calls that exceed the level will be also diplayed (last column of the summary).
 
+## Contributions
+
+I would be glad to accept pull request.
+However note that this module is dedicated to simple perf measurement, and not intented to have other features.
 
 ## Alternatives modules
 
