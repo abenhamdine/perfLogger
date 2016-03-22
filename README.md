@@ -123,7 +123,7 @@ perf.start('functionFoo');
 ```
 
 ```bash
-Start functionFoo;
+-> Start functionFoo;
 ```
 
 ```js
@@ -131,7 +131,7 @@ perf.end('functionFoo');
 ```
 
 ```bash
-functionFoo
+-> functionFoo executed in 0s 017ms
 ```
 
 
