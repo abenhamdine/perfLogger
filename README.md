@@ -140,6 +140,7 @@ perf.end('functionFoo');
 ## Multiple calls
 
 Of course, the same piece of code is likely to run several times, and so perf.start("myCode") and perf.end("myCode") will be called with for the same tag.
+
 In this case, in the final summary, you will get statistics about every measure (see below).
 
 
@@ -161,11 +162,11 @@ If the summary is displayed in the console, you will have the additional columns
 summary() accepts an options object as unique argument.
 
 This object can have the following properties :
-- bReset :
-- sOrderAttribute :
-- sOrderSens :
-- sTitle :
-- fCallback :
+- bReset : set true if you want to init (=erase) all the measurement after calling summary() (default : false)
+- sOrderAttribute : field to sort in the console summary (default : 'iDuration')
+- sOrderSens : sort order, 'asc' or 'desc' (default : 'desc')
+- sTitle : title to display in the console summary (default : '')
+- fCallback : hook function to pass the summary object (default : null)
 
 ### Summary in the console
 
