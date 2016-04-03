@@ -6,6 +6,7 @@ Performance measurement tool for nodejs.
 [![Build Status](https://travis-ci.org/abenhamdine/perf-logger.svg?branch=master)](https://travis-ci.org/abenhamdine/perf-logger)
 <span class="badge-npmversion"><a href="https://npmjs.org/package/perf-logger" title="View this project on NPM"><img src="https://img.shields.io/npm/v/perf-logger.svg" alt="NPM version" /></a></span>
 <span class="badge-npmdownloads"><a href="https://npmjs.org/package/perf-logger" title="View this project on NPM"><img src="https://img.shields.io/npm/dm/perf-logger.svg" alt="NPM downloads" /></a></span>
+[![Coverage Status](https://coveralls.io/repos/github/abenhamdine/perf-logger/badge.svg?branch=master)](https://coveralls.io/github/abenhamdine/perf-logger?branch=master)
 
 # Objectives
 
