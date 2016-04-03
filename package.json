@@ -10,9 +10,10 @@
   "license" : "MIT",
   "private": false,
   "scripts": {
-        "pretest": "eslint **/*.js && eslint test/**/*.js",
-    "test": "mocha test/**/*.js",
-    "start": "node perfLogger"
+    "pretest": "eslint perfLogger.js && eslint test/**/*.js",
+    "test": "mocha test/**/*.js && npm run coverage",
+    "start": "node perfLogger",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js  "
   },
   "main": "perfLogger.js",
   "engines": {
