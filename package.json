@@ -10,6 +10,7 @@
   "license" : "MIT",
   "private": false,
   "scripts": {
+        "pretest": "eslint **/*.js && eslint test/**/*.js",
     "test": "mocha test/**/*.js",
     "start": "node perfLogger"
   },
