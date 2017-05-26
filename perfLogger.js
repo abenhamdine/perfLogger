@@ -314,6 +314,13 @@ const self = {
 				paddingLeft: 1,
 				width: 12
 			}, {
+				value: "% of grand total",
+				headerColor: "grey",
+				color: "white",
+				align: "center",
+				paddingLeft: 1,
+				width: 12
+			}, {
 				value: "Min (s)",
 				headerColor: "grey",
 				color: "white",
@@ -356,47 +363,55 @@ const self = {
 				paddingLeft: 1,
 				width: 10
 			}];
-			let aRows = [];
 
 			let aSortedTests = _.orderBy(self._testsSummary, [options.sOrderAttribute], [options.sOrderSens]);
+
 			let sErrors = "";
 
-			for (let i = 0; i < aSortedTests.length; i++) {
+			const totalDuration = aSortedTests.reduce((acc, test) => {
+				// if the test has a parent, its duraction is included in its parent's one
+				// so we don't add it to the total
+				return acc + (test.parent ? 0 : test.iDuration);
+			}, 0);
 
-				if (aSortedTests[i].ended === false) {
-					sErrors += "\nTag [" + aSortedTests[i].sName + "] never ended : perf measurement skipped for this tag.\n";
+			for (const test of aSortedTests) {
+
+				if (test.ended === false) {
+					sErrors += "\nTag [" + test.sName + "] never ended : perf measurement skipped for this tag.\n";
 					continue;
 				}
 
 				sDuration = "";
 				sAvgDuration = "";
 
-				const iDuration = aSortedTests[i].iDuration;
+				const iDuration = test.iDuration;
 
 				sDuration = self.humanizeSeconds(iDuration);
 
 				let iAvgDuration = 0;
 
-				iAvgDuration = Math.round(aSortedTests[i].iDuration / aSortedTests[i].iNb);
+				iAvgDuration = Math.round(test.iDuration / test.iNb);
 				sAvgDuration = self.humanizeSeconds(iAvgDuration);
 
+				const iPercentOfTotal = Math.round((test.iDuration / totalDuration) * 100);
+				const sPercentOfTotal = iPercentOfTotal + ' %';
+
 				let sAboveLevel = "";
-				if (aSortedTests[i].iNbAboveLevel > 0) {
-					sAboveLevel = Math.round((aSortedTests[i].iNbAboveLevel) / aSortedTests[i].iNb * 100) + "%";
+				if (test.iNbAboveLevel > 0) {
+					sAboveLevel = Math.round((test.iNbAboveLevel) / test.iNb * 100) + "%";
 				} else {
 					sAboveLevel = "";
 				}
 
 				let sCriticity = "";
 
-				if (iAvgDuration > aSortedTests[i].iLevel) {
+				if (iAvgDuration > test.iLevel) {
 					sCriticity = "!";
 				} else {
 					sCriticity = "";
 				}
 
-				const aRow = [aSortedTests[i].sName, aSortedTests[i].iNb, sDuration, self.humanizeSeconds(aSortedTests[i].iMinDuration), self.humanizeSeconds(aSortedTests[i].iMaxDuration), sAvgDuration, self.humanizeSeconds(aSortedTests[i].iLevel), sCriticity, sAboveLevel];
-				aRows.push(aRow);
+				test.row = [test.sName, test.iNb, sDuration, sPercentOfTotal, self.humanizeSeconds(test.iMinDuration), self.humanizeSeconds(test.iMaxDuration), sAvgDuration, self.humanizeSeconds(test.iLevel), sCriticity, sAboveLevel];
 
 			} // END loop for ... on aSortedTest[]
 
