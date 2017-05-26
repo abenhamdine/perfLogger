@@ -78,7 +78,7 @@ const self = {
 
 	start: function(sTag) {
 
-		chai.expect(sTag, "sTag devrait être une chaine non vide").to.exist.and.be.a('string').and.not.be.empty;
+		chai.expect(sTag).to.exist.and.be.a('string').and.not.be.empty;
 
 		if (!self._isEnabled) {
 			return;
@@ -159,7 +159,7 @@ const self = {
 
 	end: function(sTag) {
 
-		chai.expect(sTag, "sTag devrait être une chaine non vide").to.exist.and.be.a('string').and.not.be.empty;
+		chai.expect(sTag).to.exist.and.be.a('string').and.not.be.empty;
 
 		if (!self._isEnabled) {
 			return;
@@ -183,7 +183,7 @@ const self = {
 		const indexSum = _.findIndex(self._testsSummary, {
 			sName: sTag
 		});
-		chai.expect(indexSum, "indexSum devrait être > -1").to.be.a('number').and.above(-1);
+		chai.expect(indexSum).to.be.a('number').and.above(-1);
 
 		self._testsSummary[indexSum].iDuration += iDiff;
 
@@ -278,9 +278,9 @@ const self = {
 			chai.expect(options.fCallback).to.be.a('function');
 		}
 
-		chai.expect(options.sOrderAttribute, "sOrderAttribute devrait être une chaine définie").to.exist.and.be.a('string');
-		chai.expect(options.sOrderSens, "sOrderSens devrait être une chaine définie").to.exist.and.be.a('string');
-		chai.expect(options.sTitle, "sTitle devrait être une chaine définie").to.exist.and.be.a('string');
+		chai.expect(options.sOrderAttribute).to.exist.and.be.a('string');
+		chai.expect(options.sOrderSens).to.exist.and.be.a('string');
+		chai.expect(options.sTitle).to.exist.and.be.a('string');
 
 		if (self._isEnabled) {
 
