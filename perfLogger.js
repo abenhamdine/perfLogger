@@ -364,7 +364,7 @@ const self = {
 			for (let i = 0; i < aSortedTests.length; i++) {
 
 				if (aSortedTests[i].ended === false) {
-					sErrors += "\nTag [" + aSortedTests[i].sName + "] never ended : perf measurement skipped for self tag.\n";
+					sErrors += "\nTag [" + aSortedTests[i].sName + "] never ended : perf measurement skipped for this tag.\n";
 					continue;
 				}
 
