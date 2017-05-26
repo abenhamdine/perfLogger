@@ -138,8 +138,6 @@ const self = {
 
 			self._testsSummary.push(newTestSummary);
 
-		} else {
-			self._testsSummary[indexSum].iNb++;
 		}
 
 		if (self._printStartAndEnd) {
@@ -192,6 +190,7 @@ const self = {
 		chai.expect(indexSum).to.be.a('number').and.above(-1);
 
 		self._testsSummary[indexSum].iDuration += iDiff;
+		self._testsSummary[indexSum].iNb++;
 
 		// update min and max of duration
 		if ((iDiff <= self._testsSummary[indexSum].iMinDuration) || _.isNull(self._testsSummary[indexSum].iMinDuration)) {
