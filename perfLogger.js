@@ -304,7 +304,7 @@ const self = {
 				color: "white",
 				align: "left",
 				paddingLeft: 1,
-				width: 50
+				width: 40
 			}, {
 				value: "Nb",
 				headerColor: "grey",
@@ -321,6 +321,13 @@ const self = {
 				width: 12
 			}, {
 				value: "% of grand total",
+				headerColor: "grey",
+				color: "white",
+				align: "center",
+				paddingLeft: 1,
+				width: 12
+			}, {
+				value: "% of parent",
 				headerColor: "grey",
 				color: "white",
 				align: "center",
@@ -402,6 +409,12 @@ const self = {
 				const iPercentOfTotal = Math.round((test.iDuration / totalDuration) * 100);
 				const sPercentOfTotal = iPercentOfTotal + ' %';
 
+				const parentTest = _.find(aSortedTests, { sName: test.parent });
+				let sPercentOfParent = '';
+				if (parentTest) {
+					const iPercentOfParent = Math.round((test.iDuration / parentTest.iDuration) * 100);
+					sPercentOfParent = iPercentOfParent + ' %';
+				}
 				let sAboveLevel = "";
 				if (test.iNbAboveLevel > 0) {
 					sAboveLevel = Math.round((test.iNbAboveLevel) / test.iNb * 100) + "%";
@@ -417,7 +430,7 @@ const self = {
 					sCriticity = "";
 				}
 
-				test.row = [test.sName, test.iNb, sDuration, sPercentOfTotal, self.humanizeSeconds(test.iMinDuration), self.humanizeSeconds(test.iMaxDuration), sAvgDuration, self.humanizeSeconds(test.iLevel), sCriticity, sAboveLevel];
+				test.row = [test.sName, test.iNb, sDuration, sPercentOfTotal, sPercentOfParent, self.humanizeSeconds(test.iMinDuration), self.humanizeSeconds(test.iMaxDuration), sAvgDuration, self.humanizeSeconds(test.iLevel), sCriticity, sAboveLevel];
 
 			} // END loop for ... on aSortedTest[]
 
@@ -437,6 +450,10 @@ const self = {
 			}
 
 			aSortedTests = self.processNames(aSortedTests);
+
+			// console.log("*********************************************");
+			// console.log("aSortedTests après processNames", aSortedTests);
+			// console.log("*********************************************");
 
 			// while not all tests haven't been pushed in the tree
 			const unpushed = function(arr) {
@@ -465,7 +482,10 @@ const self = {
 				}
 			}
 
-			//console.log("finalTree", finalTree);
+			// console.log("*********************************************");
+			// console.log("finalTree", finalTree);
+			// console.log("*********************************************");
+
 			let aRows = finalTree.reduce((arr, test) => {
 				if (test.ended) {
 					arr.push(test.row);
