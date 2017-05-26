@@ -1,7 +1,7 @@
 {
   "name": "perf-logger",
   "description": "perf measurement for nodejs",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "author": {
     "name": "Arnaud Benhamdine",
     "email": "",
