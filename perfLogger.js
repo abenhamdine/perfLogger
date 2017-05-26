@@ -423,6 +423,21 @@ const self = {
 
 			// re-sort tests to represent tree hierarchy between tag/parent tag
 			const finalTree = [];
+
+			// we check if there's a parent tag, if it exists
+			// if not, delete it
+			for (const test of aSortedTests) {
+				if (test.parent) {
+					const i = _.findIndex(aSortedTests, { sName: test.parent });
+					if (i === -1) {
+						console.warn("Tag parent is unknown : " + test.parent);
+						test.parent = null;
+					}
+				}
+			}
+
+			aSortedTests = self.processNames(aSortedTests);
+
 			// while not all tests haven't been pushed in the tree
 			const unpushed = function(arr) {
 				return arr.some((item) => {
@@ -443,8 +458,6 @@ const self = {
 					} else {
 						const i = _.findIndex(finalTree, { sName: test.parent });
 						if (i !== -1) {
-							// add 2 dots spaces to indent if the tag has a parent (spaces are removed by tty-table)
-							test.row[0] = ".." + test.row[0];
 							finalTree.splice(i + 1, 0, test);
 							test.processed = true;
 						}
@@ -499,6 +512,51 @@ const self = {
 			return;
 
 		}
+
+	},
+
+	processNames: function(arrTests) {
+
+		// while not all tests haven't been processed
+		const unprocessed = function(arr) {
+			return arr.some((item) => {
+				return !item.renamed;
+			});
+		};
+
+		const arrProcessed = [];
+
+		while (unprocessed(arrTests)) {
+			for (const test of arrTests) {
+
+				if (test.renamed) {
+					continue;
+				}
+
+				if (!test.parent) {
+					test.renamed = true;
+					test.rank = 0;
+					arrProcessed.push(test);
+					continue;
+				}
+
+				const parentTest = _.find(arrProcessed, { sName: test.parent });
+				if (parentTest) {
+					if (!parentTest.renamed) {
+						continue;
+					}
+					test.rank = parentTest.rank + 1;
+					// add 2 dots spaces to indent if the tag has a parent (spaces are removed by tty-table)
+					test.row[0] = '..'.repeat(test.rank) + test.row[0];
+					test.renamed = true;
+					arrProcessed.push(test);
+
+				}
+
+			}
+		}
+
+		return arrTests;
 
 	},
 
