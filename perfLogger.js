@@ -566,6 +566,11 @@ const self = {
 						continue;
 					}
 					test.rank = parentTest.rank + 1;
+					if (!test.ended) {
+						test.renamed = true;
+						arrProcessed.push(test);
+						continue;
+					}
 					// add 2 dots spaces to indent if the tag has a parent (spaces are removed by tty-table)
 					test.row[0] = '..'.repeat(test.rank) + test.row[0];
 					test.renamed = true;
