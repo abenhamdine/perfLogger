@@ -76,12 +76,16 @@ const self = {
 
 	},
 
-	start: function(sTag) {
+	start: function(sTag, sParentTag) {
 
 		chai.expect(sTag).to.exist.and.be.a('string').and.not.be.empty;
 
 		if (!self._isEnabled) {
 			return;
+		}
+
+		if (!_.isUndefined(sParentTag)) {
+			chai.expect(sParentTag).to.be.a('string').and.not.be.empty;
 		}
 
 		const newTest = {};
@@ -128,8 +132,10 @@ const self = {
 				iMaxDuration: null,
 				iLevel: iLevel,
 				iNbAboveLevel: 0,
-				ended: false
+				ended: false,
+				parent: sParentTag
 			};
+
 			self._testsSummary.push(newTestSummary);
 
 		} else {
@@ -298,7 +304,7 @@ const self = {
 				color: "white",
 				align: "left",
 				paddingLeft: 1,
-				width: 40
+				width: 50
 			}, {
 				value: "Nb",
 				headerColor: "grey",
@@ -414,6 +420,45 @@ const self = {
 				test.row = [test.sName, test.iNb, sDuration, sPercentOfTotal, self.humanizeSeconds(test.iMinDuration), self.humanizeSeconds(test.iMaxDuration), sAvgDuration, self.humanizeSeconds(test.iLevel), sCriticity, sAboveLevel];
 
 			} // END loop for ... on aSortedTest[]
+
+			// re-sort tests to represent tree hierarchy between tag/parent tag
+			const finalTree = [];
+			// while not all tests haven't been pushed in the tree
+			const unpushed = function(arr) {
+				return arr.some((item) => {
+					return !item.processed;
+				});
+			};
+
+			while (unpushed(aSortedTests)) {
+				for (const test of aSortedTests) {
+
+					if (test.ended) {
+						test.processed = true;
+					}
+
+					if (!test.parent) {
+						finalTree.push(test);
+						test.processed = true;
+					} else {
+						const i = _.findIndex(finalTree, { sName: test.parent });
+						if (i !== -1) {
+							// add 2 dots spaces to indent if the tag has a parent (spaces are removed by tty-table)
+							test.row[0] = ".." + test.row[0];
+							finalTree.splice(i + 1, 0, test);
+							test.processed = true;
+						}
+					}
+				}
+			}
+
+			//console.log("finalTree", finalTree);
+			let aRows = finalTree.reduce((arr, test) => {
+				if (test.ended) {
+					arr.push(test.row);
+				}
+				return arr;
+			}, []);
 
 			let bHookDefined = false;
 
