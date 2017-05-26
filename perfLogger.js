@@ -15,7 +15,7 @@ const self = {
 	_LEVEL_TAG_ALL: "***ALL***",
 	_fSummaryHookFunction: null, // callback to pass the summary object in summary()
 	_bDisplaySummaryWhenHook: false, // by default, we don't display summary in console if a hook function is defined
-	_iDefaultCriticityTime : 10, // default criticity level time : 10ms
+	_iDefaultCriticityTime: 10, // default criticity level time : 10ms
 
 	enable: function(b) {
 
@@ -128,7 +128,7 @@ const self = {
 				iMaxDuration: null,
 				iLevel: iLevel,
 				iNbAboveLevel: 0,
-				ended : false
+				ended: false
 			};
 			self._testsSummary.push(newTestSummary);
 
@@ -228,10 +228,9 @@ const self = {
 
 		if (_.isUndefined(options) || _.isNull(options)) {
 			options = {
-				bReset : false,
+				bReset: false,
 				sOrderAttribute: 'iDuration',
 				sOrderSens: 'desc',
-				sTitle : "",
 				sTitle: "",
 				fCallback: null
 			};
