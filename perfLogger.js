@@ -159,6 +159,14 @@ const self = {
 			delete self._tests[sTag];
 		}
 
+		const indexSum = _.findIndex(self._testsSummary, {
+			sName: sTag
+		});
+
+		if (indexSum !== -1) {
+			self._testsSummary.splice(indexSum, 1);
+		}
+
 	},
 
 	end: function(sTag) {
