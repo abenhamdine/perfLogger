@@ -222,7 +222,7 @@ const self = {
 	},
 
 	/**
-	 * [summary Provides a summary of all the perf measurements]
+	 * Provides a summary of all the perf measurements
 	 * @param  {Boolean} bReset          	[description]
 	 * @param  {string}  sOrderAttribute 	[description]
 	 * @param  {string}  sOrderSens     	[description]
