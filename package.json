@@ -36,7 +36,7 @@
     "chai": "~3",
     "colors": "~1",
     "lodash": "~4",
-    "moment": "~2",
+    "moment": "2.20.1",
     "tty-table": "^1"
   }
 }
