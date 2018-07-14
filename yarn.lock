@@ -367,9 +367,9 @@ doctrine@^2.1.0:
   dependencies:
     esutils "^2.0.2"
 
-dot-notes@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/dot-notes/-/dot-notes-1.1.1.tgz#67e86bb4dce42a25db80ce1c6ba0d008393e3286"
+dot-notes@3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/dot-notes/-/dot-notes-3.1.1.tgz#7ae7e1a948134529f3768b2fb13f4c8fa92a57cf"
 
 ecc-jsbn@~0.1.1:
   version "0.1.1"
@@ -838,11 +838,11 @@ istanbul@0.4.5:
     which "^1.1.1"
     wordwrap "^1.0.0"
 
-it-each@0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/it-each/-/it-each-0.3.1.tgz#44fa1cbd26b6c79d3250cb6da6ddc3f37947e114"
+it-each@0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/it-each/-/it-each-0.4.0.tgz#d7bd0538766471e77e0d22034ab91c252ca834c4"
   dependencies:
-    dot-notes "1.1.1"
+    dot-notes "3.1.1"
 
 js-tokens@^3.0.2:
   version "3.0.2"
