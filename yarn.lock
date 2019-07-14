@@ -157,11 +157,11 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-catharsis@^0.8.10:
-  version "0.8.10"
-  resolved "https://registry.yarnpkg.com/catharsis/-/catharsis-0.8.10.tgz#364198c1fbf084ae17028ee33ec7db53ca942ee6"
+catharsis@^0.8.11:
+  version "0.8.11"
+  resolved "https://registry.yarnpkg.com/catharsis/-/catharsis-0.8.11.tgz#d0eb3d2b82b7da7a3ce2efb1a7b00becc6643468"
   dependencies:
-    lodash "^4.17.11"
+    lodash "^4.17.14"
 
 chai@~4.2.0:
   version "4.2.0"
@@ -782,21 +782,21 @@ jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
 
-jsdoc@3.6.2:
-  version "3.6.2"
-  resolved "https://registry.yarnpkg.com/jsdoc/-/jsdoc-3.6.2.tgz#ee289fc6ba9263b7e4eceb99921179fe1c31489a"
+jsdoc@3.6.3:
+  version "3.6.3"
+  resolved "https://registry.yarnpkg.com/jsdoc/-/jsdoc-3.6.3.tgz#dccea97d0e62d63d306b8b3ed1527173b5e2190d"
   dependencies:
     "@babel/parser" "^7.4.4"
     bluebird "^3.5.4"
-    catharsis "^0.8.10"
+    catharsis "^0.8.11"
     escape-string-regexp "^2.0.0"
     js2xmlparser "^4.0.0"
     klaw "^3.0.0"
     markdown-it "^8.4.2"
     markdown-it-anchor "^5.0.2"
-    marked "^0.6.2"
+    marked "^0.7.0"
     mkdirp "^0.5.1"
-    requizzle "^0.2.2"
+    requizzle "^0.2.3"
     strip-json-comments "^3.0.1"
     taffydb "2.6.2"
     underscore "~1.9.1"
@@ -853,6 +853,10 @@ lodash@^4.17.11, lodash@~4:
   version "4.17.13"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.13.tgz#0bdc3a6adc873d2f4e0c4bac285df91b64fc7b93"
 
+lodash@^4.17.14:
+  version "4.17.14"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.14.tgz#9ce487ae66c96254fe20b599f21b6816028078ba"
+
 log-driver@^1.2.7:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/log-driver/-/log-driver-1.2.7.tgz#63b95021f0702fedfa2c9bb0a24e7797d71871d8"
@@ -871,9 +875,9 @@ markdown-it@^8.4.2:
     mdurl "^1.0.1"
     uc.micro "^1.0.5"
 
-marked@^0.6.2:
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.6.2.tgz#c574be8b545a8b48641456ca1dbe0e37b6dccc1a"
+marked@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-0.7.0.tgz#b64201f051d271b1edc10a04d1ae9b74bb8e5c0e"
 
 mdurl@^1.0.1:
   version "1.0.1"
@@ -1102,11 +1106,11 @@ request@^2.86.0:
     tunnel-agent "^0.6.0"
     uuid "^3.3.2"
 
-requizzle@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/requizzle/-/requizzle-0.2.2.tgz#df991c0cffbbbdde721504c1455f68f53f7c7bd1"
+requizzle@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/requizzle/-/requizzle-0.2.3.tgz#4675c90aacafb2c036bd39ba2daa4a1cb777fded"
   dependencies:
-    lodash "^4.17.11"
+    lodash "^4.17.14"
 
 resolve-from@^4.0.0:
   version "4.0.0"
