@@ -25,7 +25,7 @@
   },
   "bugs": "https://github.com/abenhamdine/perf-logger/issues",
   "devDependencies": {
-    "coveralls": "3.0.3",
+    "coveralls": "3.0.6",
     "eslint": "6.2.0",
     "istanbul": "0.4.5",
     "it-each": "0.4.0",
