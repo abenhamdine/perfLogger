@@ -26,14 +26,15 @@
   "bugs": "https://github.com/abenhamdine/perf-logger/issues",
   "devDependencies": {
     "@types/chai": "4.2.21",
-    "coveralls": "3.0.9",
-    "@typescript-eslint/parser": "4.28.3",
+    "@types/node": "^16.3.2",
     "@typescript-eslint/eslint-plugin": "4.28.3",
+    "@typescript-eslint/parser": "4.28.3",
+    "chai": "4.3.4",
+    "coveralls": "3.0.9",
     "it-each": "0.4.0",
     "mocha": "9.0.2",
-    "typescript": "4.3.5",
-    "chai": "4.3.4",
-    "nyc": "15.1.0"
+    "nyc": "15.1.0",
+    "typescript": "4.3.5"
   },
   "dependencies": {
     "colors": "1",
