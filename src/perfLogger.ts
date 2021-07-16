@@ -1,10 +1,8 @@
-"use strict";
 
-const Ttytable = require('tty-table');
-const chai = require('chai');
-const moment = require('moment');
-const _ = require('lodash');
-const os = require('os');
+import Ttytable from 'tty-table'
+import * as  moment from 'moment'
+import * as os from 'os'
+import * as _ from 'lodash'
 
 const self = {
 	_tests: {}, // to save tests
@@ -17,30 +15,21 @@ const self = {
 	_bDisplaySummaryWhenHook: false, // by default, we don't display summary in console if a hook function is defined
 	_iDefaultCriticityTime: 10, // default criticity level time : 10ms
 
-	enable: function(b) {
-
-		if (_.isUndefined(b)) {
-			b = false;
-		}
-
-		chai.expect(b).to.exist.and.be.a('boolean');
-
-		self._isEnabled = b;
+	enable: function (b: boolean) {
+		self._isEnabled = b ?? false
 	},
+	setConfig: function (config) {
 
-	setConfig: function(config) {
-		chai.expect(config).to.exist.and.be.a('object').and.not.be.empty;
-
-		if (!_.isUndefined(config._printStartAndEnd) && !_.isNull(config._printStartAndEnd)) {
-			self.setPrintStartAndEnd(config._printStartAndEnd);
+		if (config._printStartAndEnd && !_.isNull(config._printStartAndEnd)) {
+			self.setPrintStartAndEnd(config._printStartAndEnd)
 		}
 
 		if (config._fSummaryHookFunction) {
-			self.setHookFunction(config._fSummaryHookFunction);
+			self.setHookFunction(config._fSummaryHookFunction)
 		}
 
 		if (!_.isUndefined(config._isEnabled) && !_.isNull(config._isEnabled)) {
-			self.enable(config._isEnabled);
+			self.enable(config._isEnabled)
 		}
 
 		if (!_.isUndefined(config._bDisplaySummaryWhenHook) && !_.isNull(config._bDisplaySummaryWhenHook)) {
@@ -52,40 +41,19 @@ const self = {
 		}
 
 	},
-
-	setPrintStartAndEnd: function(b) {
-		if (_.isUndefined(b)) {
-			b = false;
-		}
-
-		chai.expect(b).to.exist.and.be.a('boolean');
-		self._printStartAndEnd = b;
+	setPrintStartAndEnd: function (b: boolean | undefined | null) {
+		self._printStartAndEnd = b ?? false
 	},
-
-	setDefaultCriticityTime: function(iMs) {
-
-		chai.expect(iMs).to.be.a('number');
-		self._iDefaultCriticityTime = iMs;
-
+	setDefaultCriticityTime: function (iMs: number) {
+		self._iDefaultCriticityTime = iMs
 	},
-
-	setDisplaySummaryWhenHook: function(b) {
-
-		chai.expect(b).to.be.a('boolean');
-		self._bDisplaySummaryWhenHook = b;
-
+	setDisplaySummaryWhenHook: function (b: boolean) {
+		self._bDisplaySummaryWhenHook = b
 	},
-
-	start: function(sTag, sParentTag) {
-
-		chai.expect(sTag).to.exist.and.be.a('string').and.not.be.empty;
+	start: function (sTag: string, sParentTag: string) {
 
 		if (!self._isEnabled) {
-			return;
-		}
-
-		if (!_.isUndefined(sParentTag)) {
-			chai.expect(sParentTag).to.be.a('string').and.not.be.empty;
+			return
 		}
 
 		const newTest = {};
@@ -94,9 +62,7 @@ const self = {
 
 		newTest.sName = sTag;
 
-		if (_.isUndefined(self._tests[sTag])) {
-			self._tests[sTag] = newTest;
-		}
+		self._tests[sTag] = newTest
 
 		const indexSum = _.findIndex(self._testsSummary, {
 			sName: sTag
@@ -134,47 +100,35 @@ const self = {
 				iNbAboveLevel: 0,
 				ended: false,
 				parent: sParentTag
-			};
-
-			self._testsSummary.push(newTestSummary);
-
+			}
+			self._testsSummary.push(newTestSummary)
 		}
 
 		if (self._printStartAndEnd) {
-
-			const sText = "Start %s";
-
-			console.log(sText, sTag);
+			const sText = "Start %s"
+			console.log(sText, sTag)
 		}
-
 	},
 
-	abort: function(sTag) {
-
+	abort: function (sTag: string) {
 		if (!self._isEnabled) {
-			return;
+			return
 		}
-
 		if (!_.isUndefined(self._tests[sTag])) {
 			delete self._tests[sTag];
 		}
-
 		const indexSum = _.findIndex(self._testsSummary, {
 			sName: sTag
-		});
-
+		})
 		if (indexSum !== -1) {
-			self._testsSummary.splice(indexSum, 1);
+			self._testsSummary.splice(indexSum, 1)
 		}
-
 	},
-
-	end: function(sTag) {
-
-		chai.expect(sTag).to.exist.and.be.a('string').and.not.be.empty;
+	end: function (sTag: string) {
+		chai.expect(sTag).to.exist.and.be.a('string').and.not.be.empty
 
 		if (!self._isEnabled) {
-			return;
+			return
 		}
 
 		if (_.isUndefined(self._tests[sTag])) {
@@ -226,9 +180,7 @@ const self = {
 
 			return console.log(sLogText, sTag, sDuration);
 		}
-
 	},
-
 	/**
 	 * Provides a summary of all the perf measurements
 	 * @param  {Boolean} bReset          	[description]
@@ -237,7 +189,7 @@ const self = {
 	 * @param  {string}  sTitle      		[description]
 	 * @param  {function}  fCallback      	[description]
 	 */
-	summary: function(options) {
+	summary: function (options) {
 
 		if (_.isUndefined(options) || _.isNull(options)) {
 			options = {
@@ -287,13 +239,8 @@ const self = {
 			if (!_.isNull(self._fSummaryHookFunction) && !_.isUndefined(self._fSummaryHookFunction) && _.isFunction(self._fSummaryHookFunction)) {
 				options.fCallback = self._fSummaryHookFunction;
 			}
-		} else {
-			chai.expect(options.fCallback).to.be.a('function');
 		}
 
-		chai.expect(options.sOrderAttribute).to.exist.and.be.a('string');
-		chai.expect(options.sOrderSens).to.exist.and.be.a('string');
-		chai.expect(options.sTitle).to.exist.and.be.a('string');
 
 		if (self._isEnabled) {
 
@@ -463,7 +410,7 @@ const self = {
 			// console.log("*********************************************");
 
 			// while not all tests haven't been pushed in the tree
-			const unpushed = function(arr) {
+			const unpushed = function (arr) {
 				return arr.some((item) => {
 					return !item.processed;
 				});
@@ -541,16 +488,13 @@ const self = {
 		}
 
 	},
-
-	processNames: function(arrTests) {
-
+	processNames: function (arrTests) {
 		// while not all tests haven't been processed
-		const unprocessed = function(arr) {
+		const unprocessed = function (arr) {
 			return arr.some((item) => {
 				return !item.renamed;
 			});
 		};
-
 		const arrProcessed = [];
 
 		while (unprocessed(arrTests)) {
@@ -587,47 +531,27 @@ const self = {
 
 			}
 		}
-
-		return arrTests;
-
+		return arrTests
 	},
-
-	humanizeSeconds: function(iDuration) {
-
-		let s = "";
-		//sDuration = moment.duration(iAvgDuration).minutes() + " mn ";
-		s = moment.duration(iDuration).seconds() + ".";
-		s += _.padStart(moment.duration(iDuration).milliseconds(), 3, '0');
-
-		return s;
+	humanizeSeconds: function (iDuration) {
+		let s = ""
+		s = moment.duration(iDuration).seconds() + "."
+		s += _.padStart(moment.duration(iDuration).milliseconds(), 3, '0')
+		return s
 	},
-
-	setHookFunction: function(f) {
-
-		chai.expect(f).to.exist.and.be.a('function');
-
-		self._fSummaryHookFunction = f;
-
+	setHookFunction: function (f) {
+		self._fSummaryHookFunction = f
 	},
-
-	setLevel: function(sTag, iMs) {
-
-		chai.expect(sTag, "sTag should be a defined string").to.exist.and.be.a('string');
-		chai.expect(iMs, "iMs should be a non empty number").to.exist.and.be.a('number').and.not.be.empty;
-
+	setLevel: function (sTag: string, iMs: number) {
 		if (_.isEmpty(sTag)) {
 			sTag = self._LEVEL_TAG_ALL;
 		}
-
 		const newLevel = {
 			sName: sTag,
 			iDuration: iMs
-		};
-
-		self._levels.push(newLevel);
-
+		}
+		self._levels.push(newLevel)
 	}
+}
 
-};
-
-module.exports = self;
+module.exports = self
